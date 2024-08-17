@@ -37,6 +37,10 @@
                 background-color:#4A5847;
                 border-color: #4A5847;
             }
+            .btn-success:hover {
+                background-color: #2e362c;
+                border-color:#2e362c;
+            }
         </style>
     </head>
     <body style="background-color: #e5e0da; font-family:'Roboto';">
@@ -177,12 +181,14 @@
             });
 
             async function predict() {
+                detect_button.innerHTML = "Predicting...";
                 console.log("Preprocessing image...");
                 var f = preprocess(image_data_url);
                 console.log("Predicting...");
                 var pred = await model.predict(f).data();
                 console.log("Done!");
                 labelContainer.innerHTML = "This looks like " + classes[tf.argMax(pred).dataSync()[0]] + ".";
+                detect_button.innerHTML = "Classify Object";
             }
 
             detect_button.addEventListener('click',predict);
