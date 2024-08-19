@@ -22,24 +22,34 @@
                font-size: 20px;
                margin: 2% 30%;
             }
-            .btn-success {
-                font-size: 20px;
-                position: absolute;
-                width: 175px;
-                height: 50px;
-                background-color:#4A5847;
-                border-color: #4A5847;
-            }
             .nav-item {
-                font-size: 20px;
+                font-size: 25px;
+            }
+            .btn-success {
+                font-size:20px; 
+                background-color: #583B1F;
+                width: 175px;
+                color:white;
+                border:none;
+                border-top-right-radius: 15px; 
+                border-bottom-right-radius: 15px; 
+                border-top-left-radius: 15px;
+                border-bottom-left-radius: 15px;
+                padding:12px;
+                position:absolute;
+                --bs-btn-active-color: white;
+                --bs-btn-active-bg: #3b2715;
+                --bs-btn-active-border-color: #3b2715;
             }
             .btn-success:disabled {
-                background-color:#4A5847;
-                border-color: #4A5847;
+                background-color:#583B1F;
+                border-color: #583B1F;
+                color:white;
             }
             .btn-success:hover {
-                background-color: #2e362c;
-                border-color:#2e362c;
+                background-color: #3b2715;
+                border-color:#3b2715;
+                color:white;
             }
         </style>
     </head>
@@ -47,7 +57,7 @@
         <center>
             <nav class="navbar navbar-expand-lg bg-transparent" style="position:absolute; width:100%;z-index:4;">
                 <div class="container-fluid">
-                  <a style="color:#583B1F;"class="navbar-brand" href="#">LetsGoGreen.ai</a>
+                  <a style="color:#583B1F;font-size: 25px;;"class="navbar-brand" href="../">LetsGoGreen.ai</a>
                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                   </button>
@@ -68,26 +78,23 @@
                   </div>
                 </div>
               </nav>
+              <div style="width:100%; position:relative;z-index:1;">
+                
+                <img src="bg.jpg" width="100%" height="85%" style="opacity:1;">
+                <div style="position: absolute;transform: translate(-50%, -50%); top:95%; left:50%; width: 100%;">
+                  <p style="font-size: 60px; color: #583B1F;">Scan Smart, Recycle, Right!</p>
+                </div>
+              </div>
              <div style="background-color: #e5e0da;">
              <br>
              <br>
-             <br><br>
-             <h1 style="margin: 0 0; color:black; font-size: 35px;">Instructions</h1>
-             <strong>
-              <div style="text-align:center;">
-              <ol style="text-align:left; display: inline-block;">
-                <li class="list">Start the Scanner Begin by pressing "Start Scanning." It will prompt you to allow access to your camera.  Click on allow access to activate the scanner.</li>
-                <li class="list">Position the Item: Hold the item you want to check in front of your device's camera. Make sure the object is well-lit and positioned in the center of the frame.</li>
-                <li class="list">Take a Photo: Press "Click Photo" to take a clear photograph of the item. Try to capture as much detail as possible.</li>
-                <li class="list">Image Processing: The system will tkae some time to process the image and extract the object in the foreground.</li>
-                <li class="list">Display Result: Finally click "Classify Object," and within seconds, our deep</li>
-              </ol>
+             <br>
+              <div style="text-align:left; width: 80%;">
+              <p style=" font-size:25px; color:#583B1F;">With our innovative scanning technology, you can easily determine whether an item is recyclable or not. Just scan the object, and let our AI do the rest. It’s as simple as that!<br><br>No more guessing or second-guessing your recycling decisions. Our friendly platform is here to help you make informed choices, ensuring that you contribute positively to the environment. Each scan not only empowers you with knowledge but also supports the global effort to reduce waste and conserve resources.
               </div>
               <br>
-              <h1 style="margin: 0 0; padding: 3%; color:black; font-size: 35px;">~ Happy Scanning! ~</h1>
-             </strong>
+              <h1 style="z-index: -2;margin: 0 0; color:#7e7b46; font-size: 50px;">Let's Get Scanning!</h1>
              </div>
-             <br>
              <br>
               <div id="objDetect" style="width: 100%; position: relative; height: 480;">
                   <button class="btn btn-success" style="top:25%; left: calc(50% + 340px);transform: translate(0%,-50%);" id="start-camera">Start Scanning!</button>
@@ -101,7 +108,7 @@
               <br>
               <br>
         <canvas id="crop" width="640" height="480" style="display:none;"></canvas>
-        <div style="height:20%; display:flex;">
+        <div style="height:15%; display:flex;">
         <div style="width:50%; align-self:center;">
             <p style="font-size: 30px; color: #583B1F;text-align:left; margin-left:5%;">LetsGoGreen.ai</p>
         </div>
@@ -113,7 +120,7 @@
         <script>
             var display = document.getElementById("display");
             const classes = ['an aerosol can', 'cardboard', 'clothing', 'coffee grounds', 'disposable plastic cutlery', 'eggshells', 'food waste', 'a glass container', 'a glass food jar', 'a magazine', 'a metal_can', 'a newspaper', 'office paper', 'a paper cup', 'a plastic bag', 'a plastic bottle', 'a plastic cup lid', 'a plastic detergent bottle', 'a plastic food container', 'a plastic straw', 'a shoe', 'styrofoam', 'a tea bag'];
-
+            const re = [1, 1, 1, 2, 0, 2, 2, 1, 1, 1, 1, 1, 1, 0, 3, 4, 1, 4, 4, 0, 1, 0, 5];
             var model;
 
             async function loadModel() {
@@ -151,7 +158,7 @@
             });
 
             click_button.addEventListener('click', function() {
-                if (click_button.innerHTML != "Clear") {
+                if (click_button.innerHTML !== "Clear") {
                     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
                     canvas.style["z-index"] = 4;
                     image_data_url = new Image();
@@ -167,7 +174,7 @@
                         // draw foreground
                         for (let i = 0; i < src.rows; i++) {
                             for (let j = 0; j < src.cols; j++) {
-                                if (mask.ucharPtr(i, j)[0] == 0 || mask.ucharPtr(i, j)[0] == 2) {
+                                if (mask.ucharPtr(i, j)[0] === 0 || mask.ucharPtr(i, j)[0] === 2) {
                                     src.ucharPtr(i, j)[0] = 255;
                                     src.ucharPtr(i, j)[1] = 255;
                                     src.ucharPtr(i, j)[2] = 255;
@@ -190,12 +197,25 @@
 
             async function predict() {
                 detect_button.innerHTML = "Predicting...";
-                console.log("Preprocessing image...");
+                console.log("Resizing image...");
                 var f = preprocess(image_data_url);
                 console.log("Predicting...");
                 var pred = await model.predict(f).data();
                 console.log("Done!");
-                labelContainer.innerHTML = "This looks like " + classes[tf.argMax(pred).dataSync()[0]] + ".";
+                var i = tf.argMax(pred).dataSync()[0];
+                var s = "This looks like " + classes[i] + ". ";
+                if (re[i] === 0) {
+                    s = s + "Unfortunately, this object is not recyclable - place it in the trash bin instead.";
+                } else if (re[i] === 1) {
+                    s = s + "This object is recyclable! Feel free to place it in the recycle bin.";
+                } else if (re[i] === 2) {
+                    s = s + "While this object is not recyclable, it is compostable! If you have a compost bin, place it there - otherwise you can put it in the trash bin.";
+                } else if (re[i] === 4) {
+                    s = s + "This object can be recycled only if it is empty and clean.";
+                } else if (re[i] === 3) {
+                    s = s + "This object may be recyclable if it is empty and clean, but it does depend on the type of plastic bag.";
+                }
+                labelContainer.innerHTML = s;
                 detect_button.innerHTML = "Classify Object";
             }
 

@@ -16,20 +16,32 @@
                font-size: 20px;
                margin: 2% 30%;
             }
-            .btn-success {
-                font-size: 20px;
-                position: absolute;
-                width: 175px;
-                height: 50px;
-                background-color:#4A5847;
-                border-color: #4A5847;
-            }
             .nav-item {
-                font-size: 20px;
+              font-size: 25px;
+            }
+            .btn-success {
+                font-size:20px; 
+                background-color: #583B1F;
+                color:white;
+                border:none;
+                border-top-right-radius: 50px; 
+                border-bottom-right-radius: 50px; 
+                border-top-left-radius: 50px;
+                border-bottom-left-radius: 50px;
+                padding:12px;
+                --bs-btn-active-color: white;
+                --bs-btn-active-bg: #3b2715;
+                --bs-btn-active-border-color: #3b2715;
             }
             .btn-success:disabled {
-                background-color:#4A5847;
-                border-color: #4A5847;
+                background-color:#583B1F;
+                border-color: #583B1F;
+                color:white;
+            }
+            .btn-success:hover {
+                background-color: #3b2715;
+                border-color:#3b2715;
+                color:white;
             }
         </style>
     </head>
@@ -37,7 +49,7 @@
         <center>
           <nav class="navbar navbar-expand-lg bg-transparent" style="position:absolute; width:100%;z-index:4;">
             <div class="container-fluid">
-              <a class="navbar-brand" style="color:#583B1F;"href="#">LetsGoGreen.ai</a>
+              <a class="navbar-brand" style="color:#583B1F;font-size: 25px;"href="#">LetsGoGreen.ai</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -60,11 +72,11 @@
           </nav>
               <div style="width:100%; background: rgba(88, 59, 31, 0.3); position:relative;z-index:1;">
                 
-                <img src="bg.jpeg" width="100%" style="opacity:0.7;">
+                <img src="bg.jpeg" width="100%"  style="opacity:0.7;">
                 <div style="position: absolute;transform: translate(-50%, -50%); top:55%; left:48%; width: 100%;">
                   <p style="font-size: 60px; color: #7e7b46;">Say hello to LetsGoGreen!</p>
                   <p style="font-size: 20px; color: #583B1F;  width:25%;">We're excited to help you discover if your items can be recycled, making the planet a greener place together!</p>
-                  <button onclick="location.href='./Scan'" style="font-size:20px;  background-color: #583B1F;color:white;border:none;border-top-right-radius: 50px; border-bottom-right-radius: 50px; border-top-left-radius: 50px; border-bottom-left-radius: 50px;padding:12px;">Start Scanning!</button>
+                  <button onclick="location.href='./Scan'" class="btn btn-success" >Start Scanning!</button>
                 </div>
               </div>
          <div style="height:100%; display:flex;">
@@ -76,11 +88,11 @@
               <div style="width:60%; align-content:left;">
                 <p style="font-size: 65px; color: #7e7b46; text-align: left; line-height:1em;">Discover more about what we love!</p>
                 <p style="font-size: 20px; color: #583B1F; text-align: left;">Hey there! We're a passionate team from Houston, excited to share our journey with you. Our mission is to utilize the power of AI to help everyone recognize what's recyclable and what's not. Join us in making a greener world, one scan at a time!</p>
-                <button onclick="location.href='./Scan'" style="float:left;font-size:20px; background-color: #583B1F;color:white;border:none;border-top-right-radius: 50px; border-bottom-right-radius: 50px; border-top-left-radius: 50px; border-bottom-left-radius: 50px;padding:12px;">Start Scanning!</button>
+                <button class="btn btn-success" onclick="location.href='./Scan'" style="float:left;">Start Scanning!</button>
               </div>
             </div>
          </div>
-         <div style="height:20%; display:flex;">
+         <div style="height:15%; display:flex;">
           <div style="width:50%; align-self:center;">
             <p style="font-size: 30px; color: #583B1F;text-align:left; margin-left:5%;">LetsGoGreen.ai</p>
           </div>
