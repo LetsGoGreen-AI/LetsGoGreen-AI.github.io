@@ -104,8 +104,8 @@
                   <canvas id="canvas" class="hover" style="z-index:-1;top:50%; left:50%; border: 2px solid black;" width="640" height="480"></canvas>
               </div>
           <br>
-              <div style="font-size: 20px;" id="label-container"></div>
-              <br>
+              <div style="font-size: 20px; color:#583B1F;" id="label-container"></div>
+              <p style="font-size: 20px; color:#583B1F; width:70%;">Please note that all of the results are just general recommendations! Please look at your local recycling center's website for more detailed instructions.</p>
               <br>
         <canvas id="crop" width="640" height="480" style="display:none;"></canvas>
         <div style="height:15%; display:flex;">
@@ -197,26 +197,28 @@
 
             async function predict() {
                 detect_button.innerHTML = "Predicting...";
-                console.log("Resizing image...");
-                var f = preprocess(image_data_url);
-                console.log("Predicting...");
-                var pred = await model.predict(f).data();
-                console.log("Done!");
-                var i = tf.argMax(pred).dataSync()[0];
-                var s = "This looks like " + classes[i] + ". ";
-                if (re[i] === 0) {
-                    s = s + "Unfortunately, this object is not recyclable - place it in the trash bin instead.";
-                } else if (re[i] === 1) {
-                    s = s + "This object is recyclable! Feel free to place it in the recycle bin.";
-                } else if (re[i] === 2) {
-                    s = s + "While this object is not recyclable, it is compostable! If you have a compost bin, place it there - otherwise you can put it in the trash bin.";
-                } else if (re[i] === 4) {
-                    s = s + "This object can be recycled only if it is empty and clean.";
-                } else if (re[i] === 3) {
-                    s = s + "This object may be recyclable if it is empty and clean, but it does depend on the type of plastic bag.";
-                }
-                labelContainer.innerHTML = s;
-                detect_button.innerHTML = "Classify Object";
+                setTimeout(async function() {
+                    console.log("Resizing image...");
+                    var f = preprocess(image_data_url);
+                    console.log("Predicting...");
+                    var pred = await model.predict(f).data();
+                    console.log("Done!");
+                    var i = tf.argMax(pred).dataSync()[0];
+                    var s = "This looks like " + classes[i] + ". ";
+                    if (re[i] === 0) {
+                        s = s + "Unfortunately, this object is not recyclable - place it in the trash bin instead.";
+                    } else if (re[i] === 1) {
+                        s = s + "This object is recyclable! Feel free to place it in the recycle bin.";
+                    } else if (re[i] === 2) {
+                        s = s + "While this object is not recyclable, it is compostable! If you have a compost bin, place it there - otherwise you can put it in the trash bin.";
+                    } else if (re[i] === 4) {
+                        s = s + "This object can be recycled only if it is empty and clean.";
+                    } else if (re[i] === 3) {
+                        s = s + "This object may be recyclable if it is empty and clean, but it does depend on the type of plastic bag.";
+                    }
+                    labelContainer.innerHTML = s;
+                    detect_button.innerHTML = "Classify Object";
+                }, 0);
             }
 
             detect_button.addEventListener('click',predict);
